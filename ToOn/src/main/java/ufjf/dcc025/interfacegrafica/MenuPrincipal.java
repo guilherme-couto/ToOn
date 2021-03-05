@@ -5,192 +5,145 @@
  */
 package ufjf.dcc025.interfacegrafica;
 
-import javax.swing.JButton;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.plaf.basic.BasicButtonUI;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
  * @author guilherme
  */
-public class MenuPrincipal extends javax.swing.JFrame {
+public class MenuPrincipal implements ActionListener {
+    
+    private int clicks = 0;
+    private ImageIcon logo = new ImageIcon("src/main/java/imagens/logo.png");
+    private JPanel panel = new JPanel();
+    private JPanel panel2 = new JPanel();
+    private JPanel panel3 = new JPanel();
+    //private JLabel label = new JLabel("Number of clicks:  0");
+    private JButton button = new JButton("Click Me");
+    private JButton botaoPrecisoAssistir = new JButton("Preciso Assistir");
+    private JButton botaoAssistindo = new JButton("Assistindo");
+    private JLabel logoToOn = new JLabel();
+    
+    
 
-    /**
-     * Creates new form MenuPrincipal
-     */
     public MenuPrincipal() {
-        initComponents();
-        JButton [] btns = {botaoPrecisoAssistir, botaoAssistindo};
         
-        for(JButton btn : btns) {
-            btn.setBackground(new Color(248, 161, 31));
-            btn.setUI(new BasicButtonUI());
-            
-            btn.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent me) {
-                }
-
-                @Override
-                public void mousePressed(MouseEvent me) {
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent me) {
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent me) {
-                    btn.setBackground(new Color(255,200,118));
-                }
-
-                @Override
-                public void mouseExited(MouseEvent me) {
-                    btn.setBackground(new Color(248, 161, 31));
-                }
-            });
-        }
+        FrameToOn frame = new FrameToOn();
+        
+        // a logo
+        logoToOn.setIcon(logo);
+        logoToOn.setHorizontalTextPosition((JLabel.CENTER));
+        logoToOn.setVerticalTextPosition(JLabel.CENTER);
+        logoToOn.setVerticalAlignment(JLabel.CENTER); // posiciona verticalmente icone+texto dentro da label
+        logoToOn.setHorizontalAlignment(JLabel.CENTER);
+        
+        /*
+        // the clickable button
+        button.addActionListener(this);
+        button.setBackground(new Color(248,161,31));
+        //button.setText("sou um botão");
+        //button.setIcon();
+        //button.setIconTextGap(10); // distância entre icone e imagem
+        button.setFocusable(false); // tira a marquinha que fica no texto do botão
+        button.setBounds(500, 250, 20, 5);
+        //button.setPreferredSize(new Dimension(60,20));
+        button.setHorizontalTextPosition((JButton.CENTER)); // alinhamento horizontal do texto
+        button.setVerticalTextPosition(JButton.CENTER); // alinhamento vertical do texto
+        //button.add(label);
+        button.setFont(new Font("Sans Serif", Font.PLAIN, 20)); // fonte do texto
+        button.setForeground(Color.WHITE); // cor da fonte 
+        button.setBorder(BorderFactory.createEtchedBorder()); // altera a borda do botão
+        button.setEnabled(true); // ativo ou nao
+        */
+        button.setVisible(false);
+        
+        // botao Preciso Assistir
+        botaoPrecisoAssistir.addActionListener(this);
+        botaoPrecisoAssistir.setBackground(new Color(248,161,31));
+        botaoPrecisoAssistir.setFocusable(false); // tira a marquinha que fica no texto do botão
+        botaoPrecisoAssistir.setPreferredSize(new Dimension(200,50));
+        botaoPrecisoAssistir.setHorizontalTextPosition((JButton.CENTER)); // alinhamento horizontal do texto
+        botaoPrecisoAssistir.setVerticalTextPosition(JButton.CENTER); // alinhamento vertical do texto
+        botaoPrecisoAssistir.setFont(new Font("Sans Serif", Font.PLAIN, 20)); // fonte do texto
+        botaoPrecisoAssistir.setForeground(Color.WHITE); // cor da fonte 
+        botaoPrecisoAssistir.setBorder(BorderFactory.createEtchedBorder()); // altera a borda do botão
+        botaoPrecisoAssistir.setSize(60, 20);
+        
+        // botao Assistindo
+        botaoAssistindo.addActionListener(this);
+        botaoAssistindo.setBackground(new Color(248,161,31));
+        botaoAssistindo.setFocusable(false); // tira a marquinha que fica no texto do botão
+        botaoAssistindo.setPreferredSize(new Dimension(200,50));
+        botaoAssistindo.setHorizontalTextPosition((JButton.CENTER)); // alinhamento horizontal do texto
+        botaoAssistindo.setVerticalTextPosition(JButton.CENTER); // alinhamento vertical do texto
+        botaoAssistindo.setFont(new Font("Sans Serif", Font.PLAIN, 20)); // fonte do texto
+        botaoAssistindo.setForeground(Color.WHITE); // cor da fonte 
+        botaoAssistindo.setBorder(BorderFactory.createEtchedBorder()); // altera a borda do botão
+        botaoAssistindo.setSize(60, 20);
+       
+        
+        // paineis
+        panel3.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 20));
+        panel3.setBackground(new Color(30,29,29)); // muda a cor de fundo
+        panel3.add(botaoPrecisoAssistir);
+        panel3.add(botaoAssistindo);
+        
+        panel2.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel2.setLayout(new BorderLayout(0, 10));
+        panel2.setBackground(new Color(30,29,29)); // muda a cor de fundo
+        panel2.add(panel3, BorderLayout.NORTH);
+ 
+        
+        // the panel with the button and text
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel.setLayout(new GridLayout(0, 1));
+        // panel.setBounds(0, 0, 200, 200); // x, y + dimensoes
+        panel.setBackground(new Color(30,29,29)); // muda a cor de fundo
+        panel.add(logoToOn);
+        panel.add(panel2);
+        
+        
+        /*
+        // variáveis para label
+        label.setHorizontalTextPosition((JLabel.CENTER)); // alinhamento horizontal do texto
+        label.setVerticalTextPosition(JLabel.CENTER); // alinhamento vertical do texto
+        label.setFont(new Font("Sans Serif", Font.PLAIN, 20)); // fonte do texto
+        label.setForeground(Color.WHITE); // cor da fonte 
+        label.setBackground(new Color(34,34,34)); // cor de fundo
+        label.setIconTextGap(10); // distância entre icone e imagem
+        label.setOpaque(true); // mostra o background
+        label.setVerticalAlignment(JLabel.CENTER); // posiciona verticalmente icone+texto dentro da label
+        label.setHorizontalAlignment(JLabel.CENTER); // posiciona horizontalmente icone+texto dentro da label
+        //label.setBounds(100, 100, 250, 250); // x, y + dimensoes dentro da frame
+        */
+        
+        // frame set up
+        frame.add(panel, BorderLayout.CENTER);
+        //frame.pack(); // resize o frame
+        
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        raiz = new javax.swing.JPanel();
-        fundoBase = new javax.swing.JPanel();
-        titulo = new javax.swing.JLabel();
-        subtitulo = new javax.swing.JLabel();
-        botaoPrecisoAssistir = new javax.swing.JButton();
-        botaoAssistindo = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        raiz.setLayout(new java.awt.BorderLayout());
-
-        fundoBase.setBackground(new java.awt.Color(30, 29, 29));
-        fundoBase.setPreferredSize(new java.awt.Dimension(940, 550));
-
-        titulo.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 92)); // NOI18N
-        titulo.setForeground(new java.awt.Color(255, 255, 255));
-        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titulo.setText("TÔ ON");
-        titulo.setToolTipText("");
-        titulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        titulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        titulo.setMaximumSize(new java.awt.Dimension(153, 49));
-
-        subtitulo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        subtitulo.setForeground(new java.awt.Color(255, 255, 255));
-        subtitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        subtitulo.setText("FILMES E SÉRIES");
-
-        botaoPrecisoAssistir.setBackground(new java.awt.Color(255, 153, 0));
-        botaoPrecisoAssistir.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
-        botaoPrecisoAssistir.setForeground(new java.awt.Color(255, 255, 255));
-        botaoPrecisoAssistir.setText("Preciso Assistir");
-        botaoPrecisoAssistir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoPrecisoAssistir.setName(""); // NOI18N
-        botaoPrecisoAssistir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoPrecisoAssistirActionPerformed(evt);
-            }
-        });
-
-        botaoAssistindo.setBackground(new java.awt.Color(255, 153, 0));
-        botaoAssistindo.setFont(new java.awt.Font("SansSerif", 1, 17)); // NOI18N
-        botaoAssistindo.setForeground(new java.awt.Color(255, 255, 255));
-        botaoAssistindo.setText("Assistindo");
-        botaoAssistindo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botaoAssistindo.setName(""); // NOI18N
-
-        javax.swing.GroupLayout fundoBaseLayout = new javax.swing.GroupLayout(fundoBase);
-        fundoBase.setLayout(fundoBaseLayout);
-        fundoBaseLayout.setHorizontalGroup(
-            fundoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(fundoBaseLayout.createSequentialGroup()
-                .addGap(265, 265, 265)
-                .addGroup(fundoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(fundoBaseLayout.createSequentialGroup()
-                        .addComponent(botaoPrecisoAssistir, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67)
-                        .addComponent(botaoAssistindo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(subtitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(278, Short.MAX_VALUE))
-        );
-        fundoBaseLayout.setVerticalGroup(
-            fundoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(fundoBaseLayout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(subtitulo)
-                .addGap(105, 105, 105)
-                .addGroup(fundoBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(botaoAssistindo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoPrecisoAssistir, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
-        );
-
-        raiz.add(fundoBase, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(raiz, java.awt.BorderLayout.CENTER);
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void botaoPrecisoAssistirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPrecisoAssistirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoPrecisoAssistirActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipal().setVisible(true);
-            }
-        });
+    // process the button clicks
+    public void actionPerformed(ActionEvent e) {
+        
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoAssistindo;
-    private javax.swing.JButton botaoPrecisoAssistir;
-    private javax.swing.JPanel fundoBase;
-    private javax.swing.JPanel raiz;
-    private javax.swing.JLabel subtitulo;
-    private javax.swing.JLabel titulo;
-    // End of variables declaration//GEN-END:variables
+    // create one Frame
+    public static void main(String[] args) {
+        new MenuPrincipal();
+    }
 }
