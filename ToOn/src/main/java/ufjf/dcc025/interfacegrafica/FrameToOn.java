@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 public class FrameToOn extends JFrame {
     
     FrameToOn(){
+        
         ImageIcon icone = new ImageIcon("src/main/java/imagens/logo_mini.png");
         
         this.setIconImage(icone.getImage()); // muda o icone do canto da janela
@@ -24,8 +25,8 @@ public class FrameToOn extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // quando clica no X, encerra o programa
         this.setTitle("Tô On"); // título da janela
         this.setVisible(true); // torna visível
-        //this.setLayout(null); // layout
         this.setSize(950, 600); // tamanho(largura x altura)
+        //this.setLayout(null); // layout
         // this.pack(); // resize o frame
     }
     
