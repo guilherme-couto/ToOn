@@ -151,6 +151,13 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        if(ae.getSource() == botaoAddFilme){
+            new AdicionarFilme();
+        }
+        if (ae.getSource() == botaoAddSerie) {
+            new AdicionarSerie();
+        }
+        
         if(ae.getSource() == botaoHome){
             frame.dispose();
             new MenuPrincipal();

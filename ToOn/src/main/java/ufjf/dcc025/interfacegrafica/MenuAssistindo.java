@@ -34,7 +34,7 @@ import javax.swing.ScrollPaneLayout;
  */
 public class MenuAssistindo implements ActionListener, MouseListener {
 
-    String[] teste = {"Você não está assistindo a nada agora. Adicione mais filmes e séries a sua lista!"};
+    public String[] teste = {"Você não está assistindo a nada agora. Adicione mais filmes e séries a sua lista!"};
 
     private ImageIcon plus = new ImageIcon("src/main/java/imagens/plus_icon.png");
     private ImageIcon home = new ImageIcon("src/main/java/imagens/home_icon.png");
@@ -161,6 +161,9 @@ public class MenuAssistindo implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        if(ae.getSource() == botaoAddFilme){
+            new AdicionarFilme();
+        }
         if (ae.getSource() == botaoAddSerie) {
             new AdicionarSerie();
         }
