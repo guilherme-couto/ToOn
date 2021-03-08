@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import ufjf.dcc025.usuario.LoginSenha;
 
 /**
  *
@@ -141,7 +142,9 @@ public class MenuPrincipal implements ActionListener, MouseListener {
 
     // create one Frame
     public static void main(String[] args) {
-        new MenuPrincipal();
+        LoginSenha usuario = new LoginSenha();
+        new PaginaLogin(LoginSenha.getLoginInfo());
+        //new MenuPrincipal();
     }
 
     @Override

@@ -47,7 +47,7 @@ public class AdicionarSerie implements ActionListener, MouseListener {
 
         // caixas de texto
         titulo.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        titulo.setBackground(new Color(34, 34, 34));
+        titulo.setBackground(new Color(30, 29, 29));
         titulo.setForeground(Color.white);
         titulo.setCaretColor(Color.white);
         titulo.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -60,7 +60,7 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         titulo.setToolTipText("Título da série");
 
         genero.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        genero.setBackground(new Color(34, 34, 34));
+        genero.setBackground(new Color(30, 29, 29));
         genero.setForeground(Color.white);
         genero.setCaretColor(Color.white);
         genero.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -73,7 +73,7 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         genero.setToolTipText("Gênero da série");
 
         subgenero.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        subgenero.setBackground(new Color(34, 34, 34));
+        subgenero.setBackground(new Color(30, 29, 29));
         subgenero.setForeground(Color.white);
         subgenero.setCaretColor(Color.white);
         subgenero.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -86,7 +86,7 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         subgenero.setToolTipText("Sub-Gênero da série");
 
         plataforma.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        plataforma.setBackground(new Color(34, 34, 34));
+        plataforma.setBackground(new Color(30, 29, 29));
         plataforma.setForeground(Color.white);
         plataforma.setCaretColor(Color.white);
         plataforma.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -99,7 +99,7 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         plataforma.setToolTipText("Plataforma da série");
 
         numTemporadas.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        numTemporadas.setBackground(new Color(34, 34, 34));
+        numTemporadas.setBackground(new Color(30, 29, 29));
         numTemporadas.setForeground(Color.white);
         numTemporadas.setCaretColor(Color.white);
         numTemporadas.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -112,7 +112,7 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         numTemporadas.setToolTipText("Número de Temporadas da série");
 
         numEpisodios.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        numEpisodios.setBackground(new Color(34, 34, 34));
+        numEpisodios.setBackground(new Color(30, 29, 29));
         numEpisodios.setForeground(Color.white);
         numEpisodios.setCaretColor(Color.white);
         numEpisodios.setCursor(new Cursor(Cursor.TEXT_CURSOR));

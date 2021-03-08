@@ -44,7 +44,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
 
         // caixas de texto
         titulo.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        titulo.setBackground(new Color(34, 34, 34));
+        titulo.setBackground(new Color(30, 29, 29));
         titulo.setForeground(Color.white);
         titulo.setCaretColor(Color.white);
         titulo.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -57,7 +57,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
         titulo.setToolTipText("Título do filme");
 
         genero.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        genero.setBackground(new Color(34, 34, 34));
+        genero.setBackground(new Color(30, 29, 29));
         genero.setForeground(Color.white);
         genero.setCaretColor(Color.white);
         genero.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -70,7 +70,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
         genero.setToolTipText("Gênero do filme");
 
         subgenero.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        subgenero.setBackground(new Color(34, 34, 34));
+        subgenero.setBackground(new Color(30, 29, 29));
         subgenero.setForeground(Color.white);
         subgenero.setCaretColor(Color.white);
         subgenero.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -83,7 +83,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
         subgenero.setToolTipText("Sub-Gênero do filme");
 
         plataforma.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        plataforma.setBackground(new Color(34, 34, 34));
+        plataforma.setBackground(new Color(30, 29, 29));
         plataforma.setForeground(Color.white);
         plataforma.setCaretColor(Color.white);
         plataforma.setCursor(new Cursor(Cursor.TEXT_CURSOR));
@@ -96,7 +96,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
         plataforma.setToolTipText("Plataforma do filme");
 
         duracao.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        duracao.setBackground(new Color(34, 34, 34));
+        duracao.setBackground(new Color(30, 29, 29));
         duracao.setForeground(Color.white);
         duracao.setCaretColor(Color.white);
         duracao.setCursor(new Cursor(Cursor.TEXT_CURSOR));

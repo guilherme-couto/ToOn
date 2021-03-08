@@ -20,15 +20,15 @@ public class LoginSenha {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
         
-    HashMap<String,String> infoLogin = new HashMap<String, String> ();
+    static HashMap<String,String> infoLogin = new HashMap<String, String> ();
     
-    LoginSenha (){
+    public LoginSenha (){
         infoLogin.put("testeum", "teste");
         infoLogin.put ("java", "teste");
         infoLogin.put ("Mateus", "Souza");
     }
     
-    protected static HashMap getLoginInfo(){
+    public static HashMap getLoginInfo(){
         return infoLogin;
     }
     
