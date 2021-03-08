@@ -6,7 +6,11 @@ public class Genero {
     private String genero;
     private String subGenero;
 
-    public Genero (String genero){
+    public Genero (){
+    }
+
+    public void cadastrarGenero(String genero, String subGenero){
         this.genero = genero;
+        this.subGenero = subGenero;
     }
 }
