@@ -15,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,7 +31,7 @@ import javax.swing.border.TitledBorder;
  *
  * @author guilherme
  */
-public class PaginaLogin implements ActionListener, MouseListener {
+public class PaginaCadastro implements ActionListener, MouseListener {
 
     private JPanel panel = new JPanel();
 
@@ -36,15 +39,15 @@ public class PaginaLogin implements ActionListener, MouseListener {
     private JLabel mensagem = new JLabel();
     private JTextField username = new JTextField();
     private JPasswordField senha = new JPasswordField();
+    private JPasswordField confirmaSenha = new JPasswordField();
     private JButton botaoCadastrar = new JButton();
-    private JButton botaoEntrar = new JButton();
     private TitledBorder descricao;
 
     private FrameToOn frame = new FrameToOn();
 
     HashMap<String, String> infoLogin = new HashMap<String, String>();
 
-    public PaginaLogin(HashMap<String, String> infoLoginOriginal) {
+    public PaginaCadastro(HashMap<String, String> infoLoginOriginal) {
         infoLogin = infoLoginOriginal;
 
         //labels
@@ -52,7 +55,7 @@ public class PaginaLogin implements ActionListener, MouseListener {
         titulo.setBackground(new Color(30, 29, 29));
         titulo.setForeground(Color.white);
         titulo.setBorder(BorderFactory.createEmptyBorder());
-        titulo.setText("Login");
+        titulo.setText("Cadastro");
         titulo.setPreferredSize(new Dimension(200, 70));
         titulo.setHorizontalAlignment(JTextField.CENTER);
 
@@ -91,37 +94,35 @@ public class PaginaLogin implements ActionListener, MouseListener {
         senha.setPreferredSize(new Dimension(200, 50));
         senha.setToolTipText("Digite sua senha");
 
-        //botoes
+        confirmaSenha.setFont(new Font("Sans Serif", Font.PLAIN, 16));
+        confirmaSenha.setBackground(new Color(30, 29, 29));
+        confirmaSenha.setForeground(Color.white);
+        confirmaSenha.setCaretColor(Color.white);
+        confirmaSenha.setCursor(new Cursor(Cursor.TEXT_CURSOR));
+        descricao = BorderFactory.createTitledBorder("");
+        descricao.setTitle("Confirme a senha");
+        descricao.setTitleColor(Color.white);
+        descricao.setTitleFont(new Font("Sans Serif", Font.ITALIC, 13));
+        confirmaSenha.setBorder(descricao);
+        confirmaSenha.setPreferredSize(new Dimension(200, 50));
+        confirmaSenha.setToolTipText("Digite sua senha novamente");
+
+        //botão
         botaoCadastrar.addActionListener(this);
-        botaoCadastrar.setBackground(new Color(30, 29, 29));
-        botaoCadastrar.setText("Cadastrar-se");
-        botaoCadastrar.setPreferredSize(new Dimension(200, 30));
+        botaoCadastrar.setBackground(new Color(248, 161, 31));
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.setFocusable(false); // tira a marquinha que fica no texto do botão
+        botaoCadastrar.setPreferredSize(new Dimension(160, 30));
         botaoCadastrar.setHorizontalTextPosition((JButton.RIGHT)); // alinhamento horizontal do texto
         botaoCadastrar.setVerticalTextPosition(JButton.CENTER); // alinhamento vertical do texto
-        botaoCadastrar.setFont(new Font("Sans Serif", Font.ITALIC, 17)); // fonte do texto
+        botaoCadastrar.setFont(new Font("Sans Serif", Font.BOLD, 20)); // fonte do texto
         botaoCadastrar.setHorizontalAlignment(JButton.CENTER); // alinhamento dentro do panel
         botaoCadastrar.setVerticalAlignment(JButton.CENTER); // alinhamento dentro do panel
-        botaoCadastrar.setForeground(new Color(115, 115, 115)); // cor da fonte 
-        botaoCadastrar.setBorder(BorderFactory.createEmptyBorder()); // altera a borda do botão
+        botaoCadastrar.setForeground(Color.WHITE); // cor da fonte 
+        botaoCadastrar.setBorder(BorderFactory.createRaisedSoftBevelBorder()); // altera a borda do botão
         botaoCadastrar.setToolTipText("Clique para se cadastrar");
         botaoCadastrar.setCursor(new Cursor(Cursor.HAND_CURSOR)); // muda o cursor
         botaoCadastrar.addMouseListener(this);
-
-        botaoEntrar.addActionListener(this);
-        botaoEntrar.setBackground(new Color(248, 161, 31));
-        botaoEntrar.setText("Entrar");
-        botaoEntrar.setFocusable(false); // tira a marquinha que fica no texto do botão
-        botaoEntrar.setPreferredSize(new Dimension(160, 30));
-        botaoEntrar.setHorizontalTextPosition((JButton.RIGHT)); // alinhamento horizontal do texto
-        botaoEntrar.setVerticalTextPosition(JButton.CENTER); // alinhamento vertical do texto
-        botaoEntrar.setFont(new Font("Sans Serif", Font.BOLD, 20)); // fonte do texto
-        botaoEntrar.setHorizontalAlignment(JButton.CENTER); // alinhamento dentro do panel
-        botaoEntrar.setVerticalAlignment(JButton.CENTER); // alinhamento dentro do panel
-        botaoEntrar.setForeground(Color.WHITE); // cor da fonte 
-        botaoEntrar.setBorder(BorderFactory.createRaisedSoftBevelBorder()); // altera a borda do botão
-        botaoEntrar.setToolTipText("Clique para entrar");
-        botaoEntrar.setCursor(new Cursor(Cursor.HAND_CURSOR)); // muda o cursor
-        botaoEntrar.addMouseListener(this);
 
         //panel
         panel.setBorder(BorderFactory.createEmptyBorder(15, 35, 35, 35));
@@ -130,41 +131,50 @@ public class PaginaLogin implements ActionListener, MouseListener {
         panel.add(titulo);
         panel.add(username);
         panel.add(senha);
+        panel.add(confirmaSenha);
         panel.add(mensagem);
-        panel.add(botaoEntrar);
         panel.add(botaoCadastrar);
 
         // frame
-        frame.setTitle("Tô On - Página de Login");
+        frame.setTitle("Tô On - Página de Cadastro");
+        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
         frame.setSize(450, 550);
         frame.add(panel, BorderLayout.CENTER);
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == botaoEntrar) {
+        if (ae.getSource() == botaoCadastrar) {
 
             String nomeUsuario = username.getText();
             String senhaUsuario = String.valueOf(senha.getPassword());
-
-            if (infoLogin.containsKey(nomeUsuario)) {
-                if (infoLogin.get(nomeUsuario).equals(senhaUsuario)) {
-                    mensagem.setForeground(Color.green);
-                    mensagem.setText("Logado com sucesso");
-                    frame.dispose();
-                    MenuPrincipal menuPrincipal = new MenuPrincipal();
-                } else {
-                    mensagem.setForeground(Color.red);
-                    mensagem.setText("Senha incorreta");
-                }
-            } else {
+            String senhaConfirmada = String.valueOf(confirmaSenha.getPassword());
+            System.out.println("senha: " + senhaUsuario);
+            System.out.println("confirmada: " + senhaConfirmada);
+            if (nomeUsuario == null) {
                 mensagem.setForeground(Color.red);
-                mensagem.setText("Usuario não existe");
+                mensagem.setText("Username não pode estar em branco");
+            } else if (infoLogin.containsKey(nomeUsuario)) {
+                mensagem.setForeground(Color.red);
+                mensagem.setText("Username já está sendo utilizado");
+            } else if (senhaUsuario == " ") {
+                mensagem.setForeground(Color.red);
+                mensagem.setText("A senha não pode estar em branco");
+            }  else { //caso o username esteja disponível
+                try {
+                    FileWriter fw = new FileWriter("LoginSenha.txt", true);
+                    PrintWriter pw = new PrintWriter(fw);
+                    pw.println(nomeUsuario + ";" + senhaUsuario);
+                    fw.close();
+                    pw.close();
+                    System.out.println("Cadastro realizado com sucesso");
+                } catch (IOException e) {
+                    System.out.println("Erro ocorreu ao tentar cadastrar");
+                    e.printStackTrace();
+                }
+                frame.dispose();
+                new MenuPrincipal();
             }
-        }
-        if (ae.getSource() == botaoCadastrar) {
-            frame.dispose();
-            new PaginaCadastro(infoLogin);
         }
     }
 
@@ -182,19 +192,15 @@ public class PaginaLogin implements ActionListener, MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent me) {
-        if (me.getSource() == botaoEntrar) {
-            botaoEntrar.setBackground(new Color(255, 183, 76));
-        } else if (me.getSource() == botaoCadastrar) {
-            botaoCadastrar.setForeground(Color.WHITE);
+        if (me.getSource() == botaoCadastrar) {
+            botaoCadastrar.setBackground(new Color(255, 183, 76));
         }
     }
 
     @Override
     public void mouseExited(MouseEvent me) {
-        if (me.getSource() == botaoEntrar) {
-            botaoEntrar.setBackground(new Color(248, 161, 31));
-        } else if (me.getSource() == botaoCadastrar) {
-            botaoCadastrar.setForeground(new Color(115, 115, 115));
+        if (me.getSource() == botaoCadastrar) {
+            botaoCadastrar.setBackground(new Color(248, 161, 31));
         }
     }
 

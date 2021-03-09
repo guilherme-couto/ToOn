@@ -11,4 +11,7 @@ package ufjf.dcc025.toon;
  */
 public class Execucao {
     
+    public static void main(String[] args) {
+        
+    }       
 }
