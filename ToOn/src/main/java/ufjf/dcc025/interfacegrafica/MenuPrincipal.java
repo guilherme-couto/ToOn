@@ -19,7 +19,6 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import ufjf.dcc025.usuario.LoginSenha;
@@ -133,7 +132,7 @@ public class MenuPrincipal implements ActionListener, MouseListener {
             frame.dispose(); // fecha a janela anterior (MenuPrincipal) para não ficar com duas abertas
             new MenuPrecisoAssistir();
         }
-        if(e.getSource() == botaoAssistindo){
+        if (e.getSource() == botaoAssistindo) {
             frame.dispose();
             new MenuAssistindo();
         }

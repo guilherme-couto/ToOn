@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package ufjf.dcc025.usuario;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -12,26 +17,47 @@ import java.util.HashMap;
  */
 public class LoginSenha {
 
-    static boolean containsKey(String idUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    static HashMap<String, String> infoLogin = new HashMap<String, String>();
+
+    public LoginSenha() {
+
+        BufferedReader br = null;
+
+        try {
+
+            File file = new File("LoginSenha.txt"); // Cria o objeto para o arquivo
+
+            br = new BufferedReader(new FileReader(file)); // Cria BufferedReader para ajudar na leitura do arquivo
+
+            String linha = null;
+
+            while ((linha = br.readLine()) != null) {
+
+                String[] infos = linha.split(";"); // separa a linha quando encontrar ;
+
+                String username = infos[0].trim();
+                String senha = infos[1].trim();
+
+                if (!username.equals("") && !senha.equals("")) {
+                    infoLogin.put(username, senha); // insere no HashMap
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+            // Always close the BufferedReader 
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (Exception e) {
+                };
+            }
+        }
     }
 
-    static Object get(String idUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-        
-    static HashMap<String,String> infoLogin = new HashMap<String, String> ();
-    
-    public LoginSenha (){
-        infoLogin.put("testeum", "teste");
-        infoLogin.put ("java", "teste");
-        infoLogin.put ("Mateus", "Souza");
-    }
-    
-    public static HashMap getLoginInfo(){
+    public static HashMap getLoginInfo() {
         return infoLogin;
     }
-    
-    
-  
+
 }
