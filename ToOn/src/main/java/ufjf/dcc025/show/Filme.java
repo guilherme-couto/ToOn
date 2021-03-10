@@ -7,7 +7,7 @@ public class Filme extends Show {
     }
 
     @Override
-    public void cadastro(String titulo, Genero genero, String plataforma, boolean assistindo, String td) {
+    public void cadastro(String titulo, String genero, String plataforma, boolean assistindo, String td) {
         this.titulo = titulo;
         this.genero = genero;
         this.plataforma = plataforma;
@@ -27,7 +27,7 @@ public class Filme extends Show {
         return titulo;
     }
 
-    public Genero getGenero() {
+    public String getGenero() {
         return genero;
     }
 
@@ -43,5 +43,11 @@ public class Filme extends Show {
         return ondeParou;
     }
     
-    
+    public String listarAssistindo(){
+        return titulo + " | " + genero + " | " + plataforma + " | " + duracao + " | " + ondeParou;
+    }
+
+    public String listarAssistir(){
+        return titulo + " | " + genero + " | " + plataforma + " | " + duracao;
+    }
 }

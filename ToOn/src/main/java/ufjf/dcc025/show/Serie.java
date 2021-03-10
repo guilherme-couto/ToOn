@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Serie extends Show{
     private int temporadas;
-    private ArrayList<Integer> episodios = new ArrayList();
+    private int episodios;
 
     public Serie (){
         
     }
 
     @Override
-    public void cadastro(String titulo, Genero genero, String plataforma, boolean assistindo,  String td) {
+    public void cadastro(String titulo, String genero, String plataforma, boolean assistindo,  String td) {
         this.titulo = titulo;
         this.genero = genero;
         this.plataforma = plataforma;
@@ -19,17 +19,12 @@ public class Serie extends Show{
         temporadas = Integer.parseInt(td);
     }
 
-    public void adicionarEpisodios(int ep){
-        episodios.add(ep);
-    }
-
     public void editarTemporadas(int temporadas){
         this.temporadas = temporadas;
     }
 
-    public void editarEpisodios(int temporada, int nEp){
-        episodios.remove(temporada-1);
-        episodios.add(temporada-1, nEp);
+    public void editarEpisodios( int episodios){
+        this.episodios=episodios;
     }
 
     public void editarOndeParou(int temporada, int episodio){
@@ -44,7 +39,7 @@ public class Serie extends Show{
         return titulo;
     }
 
-    public Genero getGenero() {
+    public String getGenero() {
         return genero;
     }
 
@@ -59,7 +54,18 @@ public class Serie extends Show{
     public String getOndeParou() {
         return ondeParou;
     }
+
+    public int getEpisodios(){
+        return episodios;
+    }
     
+    public String listarAssistindo(){
+        return titulo + " | " + genero + " | " + plataforma + " | " + temporadas + " | " + episodios + " | " + ondeParou;
+    }
+
+    public String listarAssistir(){
+        return titulo + " | " + genero + " | " + plataforma + " | " + temporadas + " | " + episodios;
+    }
     
     
 }
