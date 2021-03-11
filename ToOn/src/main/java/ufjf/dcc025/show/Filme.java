@@ -44,10 +44,10 @@ public class Filme extends Show {
     }
     
     public String listarAssistindo(){
-        return titulo + " | " + genero + " | " + plataforma + " | " + duracao + " | " + ondeParou;
+        return ("[FILME]  " + titulo + "  |  " + genero + "  |  " + plataforma + "  |  " + duracao + "  |  " + ondeParou);
     }
 
     public String listarAssistir(){
-        return titulo + " | " + genero + " | " + plataforma + " | " + duracao;
+        return ("[FILME]  " + titulo + "  |  " + genero + "  |  " + plataforma + "  |  " + duracao);
     }
 }

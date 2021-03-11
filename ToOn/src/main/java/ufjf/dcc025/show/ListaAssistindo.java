@@ -24,4 +24,8 @@ public class ListaAssistindo {
     public String getPorIndice(int indice){
         return assistindo.get(indice);
     }
+    public ArrayList<String> getLista()
+    {
+        return assistindo;
+    }
 }

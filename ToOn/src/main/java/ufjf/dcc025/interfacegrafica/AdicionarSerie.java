@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/*
+ *  Guilherme Martins Couto - 202065500B
+ */
+
 package ufjf.dcc025.interfacegrafica;
 
 import java.awt.BorderLayout;
@@ -15,8 +19,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -32,6 +40,7 @@ public class AdicionarSerie implements ActionListener, MouseListener {
     private JPanel panel = new JPanel();
 
     private JButton botaoAdicionar = new JButton();
+    private JLabel mensagem = new JLabel();
     private JTextField titulo = new JTextField();
     private JTextField genero = new JTextField();
     private JTextField subgenero = new JTextField();
@@ -42,9 +51,15 @@ public class AdicionarSerie implements ActionListener, MouseListener {
     private TitledBorder descricao;
 
     private FrameToOn frame = new FrameToOn();
+    
+    String usuarioAtivo;
+    String situacao;
 
-    public AdicionarSerie() {
-
+    public AdicionarSerie(String nomeUsuario, String status) {
+        
+        usuarioAtivo = nomeUsuario;
+        situacao = status;
+        
         // caixas de texto
         titulo.setFont(new Font("Sans Serif", Font.PLAIN, 16));
         titulo.setBackground(new Color(30, 29, 29));
@@ -131,8 +146,16 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         obrigatorio.setText("* Campo obrigatório");
         obrigatorio.setEditable(false);
         obrigatorio.setEnabled(false);
-        obrigatorio.setPreferredSize(new Dimension(500, 50));
+        obrigatorio.setPreferredSize(new Dimension(500, 20));
         obrigatorio.setHorizontalAlignment(JTextField.CENTER);
+        
+        mensagem.setFont(new Font("Sans Serif", Font.ITALIC, 13));
+        mensagem.setBackground(new Color(30, 29, 29));
+        mensagem.setForeground(Color.white);
+        mensagem.setBorder(BorderFactory.createEmptyBorder());
+        mensagem.setText("");
+        mensagem.setPreferredSize(new Dimension(500, 35));
+        mensagem.setHorizontalAlignment(JTextField.CENTER);
 
         //botão
         botaoAdicionar.addActionListener(this);
@@ -163,12 +186,14 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         panel.add(numTemporadas);
         panel.add(numEpisodios);
         panel.add(obrigatorio);
+        panel.add(mensagem);
         panel.add(botaoAdicionar);
 
         // frame
         frame.setTitle("Tô On - Adicionar Série");
         frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
-        frame.setSize(780, 500);
+        frame.setSize(780, 520);
+        frame.setResizable(false);
         frame.add(panel, BorderLayout.CENTER);
 
     }
@@ -177,6 +202,46 @@ public class AdicionarSerie implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == botaoAdicionar) {
             System.out.println(titulo.getText());
+            
+            String tituloSerie = titulo.getText();
+            String generoSerie = genero.getText();
+            String subgeneroSerie = subgenero.getText();
+            String plataformaSerie = plataforma.getText();
+            String numTemporadasSerie = numTemporadas.getText();
+            String numEpisodiosSerie = numEpisodios.getText();
+       
+            
+            if (tituloSerie.equals("")) {
+                mensagem.setForeground(Color.red);
+                mensagem.setText("Título não pode estar em branco");
+            } else if (generoSerie.equals("")) {
+                mensagem.setForeground(Color.red);
+                mensagem.setText("Gênero não pode estar em branco");
+            } else if (plataformaSerie.equals("")) {
+                mensagem.setForeground(Color.red);
+                mensagem.setText("Plataforma não pode estar em branco");
+            } else if(numTemporadasSerie.equals("")) {
+                mensagem.setForeground(Color.red);
+                mensagem.setText("Temporadas não pode estar em branco");
+            } else if(numEpisodiosSerie.equals("")) {
+                mensagem.setForeground(Color.red);
+                mensagem.setText("Episodios não pode estar em branco");
+            } else{
+                try {
+                    FileWriter fw = new FileWriter("BaseFilmesSeries.txt", true);
+                    PrintWriter pw = new PrintWriter(fw);
+                    pw.println(usuarioAtivo + ";" + tituloSerie + ";" + generoSerie
+                                + ";" + plataformaSerie + ";" + numTemporadasSerie + ";" + numEpisodiosSerie + ";"
+                                + situacao);
+                    fw.close();
+                    pw.close();
+                    System.out.println("Serie adicionada com sucesso");
+                } catch (IOException e) {
+                    System.out.println("Erro ocorreu ao tentar adicionar filme");
+                    e.printStackTrace();
+                }
+                frame.dispose();
+            }
         }
     }
 

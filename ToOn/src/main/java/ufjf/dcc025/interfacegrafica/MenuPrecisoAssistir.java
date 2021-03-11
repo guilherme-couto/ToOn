@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+ /*
+ *  Guilherme Martins Couto - 202065500B
+ */
 package ufjf.dcc025.interfacegrafica;
 
 import java.awt.BorderLayout;
@@ -25,6 +29,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import static javax.swing.ScrollPaneConstants.*;
 import javax.swing.ScrollPaneLayout;
+import ufjf.dcc025.show.*;
+import ufjf.dcc025.usuario.BaseFilmesSeries;
 
 /**
  *
@@ -32,7 +38,7 @@ import javax.swing.ScrollPaneLayout;
  */
 public class MenuPrecisoAssistir implements ActionListener, MouseListener {
 
-    String[] teste = {"Não há nada para assistir agora. Adicione mais filmes e séries a sua lista!"};
+    String[] padrao = {"Não há nada para assistir agora. Adicione mais filmes e séries a sua lista!"};
 
     private ImageIcon plus = new ImageIcon("src/main/java/imagens/plus_icon.png");
     private ImageIcon home = new ImageIcon("src/main/java/imagens/home_icon.png");
@@ -48,7 +54,14 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener {
     private JButton botaoHome = new JButton();
     private FrameToOn frame = new FrameToOn();
 
-    public MenuPrecisoAssistir() {
+    String usuarioAtivo;
+    ListaAssistir listaAssistir;
+
+    public MenuPrecisoAssistir(String nomeUsuario) {
+
+        usuarioAtivo = nomeUsuario;
+        BaseFilmesSeries baseDados = new BaseFilmesSeries(nomeUsuario, false);
+        listaAssistir = baseDados.getListaAssistir();
 
         // botoes
         botaoAddFilme.addActionListener(this);
@@ -119,17 +132,22 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener {
         panel.add(panel3);
 
         //list
-        lista.setListData(teste);
+        if (listaAssistir.getSize() == 0) {
+            lista.setListData(padrao);
+            lista.setFont(new Font("Sans Serif", Font.ITALIC, 20));
+            lista.setForeground(new Color(115, 115, 115));
+        } else {
+            lista.setListData(listaAssistir.getLista().toArray());
+            lista.setFont(new Font("Sans Serif", Font.PLAIN, 20));
+            lista.setForeground(Color.WHITE);
+        }
         lista.setLayoutOrientation(JList.VERTICAL);
         lista.setSize(630, 490);
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lista.setLayoutOrientation(JList.VERTICAL);
         lista.setVisibleRowCount(-1);
-        lista.setFont(new Font("Sans Serif", Font.ITALIC, 20)); // fonte do texto
-        lista.setForeground(new Color(115,115,115)); // cor da fonte 
-        lista.setBackground(new Color(34,34,34));
-        lista.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
+        lista.setBackground(new Color(34, 34, 34));
+        lista.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // scroll pane
         scrollPane.setLayout(new ScrollPaneLayout());
@@ -151,16 +169,16 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource() == botaoAddFilme){
-            new AdicionarFilme();
+        if (ae.getSource() == botaoAddFilme) {
+            new AdicionarFilme(usuarioAtivo, "assistir");
         }
         if (ae.getSource() == botaoAddSerie) {
-            new AdicionarSerie();
+            new AdicionarSerie(usuarioAtivo, "assistir");
         }
-        
-        if(ae.getSource() == botaoHome){
+
+        if (ae.getSource() == botaoHome) {
             frame.dispose();
-            new MenuPrincipal();
+            new MenuPrincipal(usuarioAtivo);
         }
     }
 
@@ -201,5 +219,4 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener {
             botaoHome.setIcon(home);
         }
     }
-
 }

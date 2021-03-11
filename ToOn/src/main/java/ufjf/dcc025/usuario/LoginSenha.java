@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+ /*
+ *  Guilherme Martins Couto - 202065500B
+ */
 package ufjf.dcc025.usuario;
 
 import java.io.BufferedReader;
@@ -12,6 +16,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
+ * Guilherme Martins Couto - 202065500B
  *
  * @author mateu
  */
@@ -25,10 +30,13 @@ public class LoginSenha {
 
         try {
 
-            File file = new File("LoginSenha.txt"); // Cria o objeto para o arquivo
+            // Cria o objeto para o arquivo
+            File arqv = new File("LoginSenha.txt");
 
-            br = new BufferedReader(new FileReader(file)); // Cria BufferedReader para ajudar na leitura do arquivo
+            // Cria BufferedReader para ajudar na leitura do arquivo
+            br = new BufferedReader(new FileReader(arqv));
 
+            // para ler cada linha do arquivo
             String linha = null;
 
             while ((linha = br.readLine()) != null) {
@@ -39,14 +47,13 @@ public class LoginSenha {
                 String senha = infos[1].trim();
 
                 if (!username.equals("") && !senha.equals("")) {
-                    infoLogin.put(username, senha); // insere no HashMap
+                    // insere no HashMap
+                    infoLogin.put(username, senha);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
-            // Always close the BufferedReader 
             if (br != null) {
                 try {
                     br.close();

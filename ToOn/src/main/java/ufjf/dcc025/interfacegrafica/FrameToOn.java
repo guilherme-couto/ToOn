@@ -3,6 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/*
+ *  Guilherme Martins Couto - 202065500B
+ */
+
 package ufjf.dcc025.interfacegrafica;
 
 import java.awt.BorderLayout;

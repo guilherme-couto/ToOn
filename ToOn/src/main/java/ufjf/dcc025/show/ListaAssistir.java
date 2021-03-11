@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ListaAssistir {
     private ArrayList <String> assistir = new ArrayList<>();
-
+    
     public ListaAssistir(){
 
     }
@@ -23,5 +23,9 @@ public class ListaAssistir {
 
     public String getPorIndice(int indice){
         return assistir.get(indice);
+    }
+    public ArrayList<String> getLista()
+    {
+        return assistir;
     }
 }

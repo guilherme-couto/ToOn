@@ -2,6 +2,8 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ /*
+ *  Guilherme Martins Couto - 202065500B
  */
 package ufjf.dcc025.interfacegrafica;
 
@@ -27,6 +29,8 @@ import javax.swing.ListSelectionModel;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 import javax.swing.ScrollPaneLayout;
+import ufjf.dcc025.show.ListaAssistindo;
+import ufjf.dcc025.usuario.BaseFilmesSeries;
 
 /**
  *
@@ -34,7 +38,7 @@ import javax.swing.ScrollPaneLayout;
  */
 public class MenuAssistindo implements ActionListener, MouseListener {
 
-    public String[] teste = {"Você não está assistindo a nada agora. Adicione mais filmes e séries a sua lista!"};
+    public String[] padrao = {"Você não está assistindo a nada agora. Adicione mais filmes e séries a sua lista!"};
 
     private ImageIcon plus = new ImageIcon("src/main/java/imagens/plus_icon.png");
     private ImageIcon home = new ImageIcon("src/main/java/imagens/home_icon.png");
@@ -51,7 +55,14 @@ public class MenuAssistindo implements ActionListener, MouseListener {
     private JCheckBox check = new JCheckBox();
     private FrameToOn frame = new FrameToOn();
 
-    public MenuAssistindo() {
+    String usuarioAtivo;
+    ListaAssistindo listaAssistindo;
+
+    public MenuAssistindo(String nomeUsuario) {
+
+        usuarioAtivo = nomeUsuario;
+        BaseFilmesSeries baseDados = new BaseFilmesSeries(nomeUsuario, true);
+        listaAssistindo = baseDados.getListaAssistindo();
 
         // botoes
         botaoAddFilme.addActionListener(this);
@@ -130,16 +141,22 @@ public class MenuAssistindo implements ActionListener, MouseListener {
         panel.add(panel3);
 
         //list
-        lista.setListData(teste);
+        if (listaAssistindo.getSize() == 0) {
+            lista.setListData(padrao);
+            lista.setFont(new Font("Sans Serif", Font.ITALIC, 20));
+            lista.setForeground(new Color(115, 115, 115));
+        } else {
+            lista.setListData(listaAssistindo.getLista().toArray());
+            lista.setFont(new Font("Sans Serif", Font.PLAIN, 20));
+            lista.setForeground(Color.WHITE);
+        }
         lista.setLayoutOrientation(JList.VERTICAL);
         lista.setSize(630, 490);
         lista.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lista.setLayoutOrientation(JList.VERTICAL);
         lista.setVisibleRowCount(-1);
-        lista.setFont(new Font("Sans Serif", Font.ITALIC, 20)); // fonte do texto
-        lista.setForeground(new Color(115, 115, 115)); // cor da fonte 
         lista.setBackground(new Color(34, 34, 34));
-        lista.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        lista.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // scroll pane
         scrollPane.setLayout(new ScrollPaneLayout());
@@ -161,16 +178,16 @@ public class MenuAssistindo implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource() == botaoAddFilme){
-            new AdicionarFilme();
+        if (ae.getSource() == botaoAddFilme) {
+            new AdicionarFilme(usuarioAtivo, "assistindo");
         }
         if (ae.getSource() == botaoAddSerie) {
-            new AdicionarSerie();
+            new AdicionarSerie(usuarioAtivo, "assistindo");
         }
-        
+
         if (ae.getSource() == botaoHome) {
             frame.dispose();
-            new MenuPrincipal();
+            new MenuPrincipal(usuarioAtivo);
         }
     }
 

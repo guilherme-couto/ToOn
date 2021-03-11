@@ -60,11 +60,11 @@ public class Serie extends Show{
     }
     
     public String listarAssistindo(){
-        return titulo + " | " + genero + " | " + plataforma + " | " + temporadas + " | " + episodios + " | " + ondeParou;
+        return ("[SÉRIE]  " + titulo + "  |  " + genero + "  |  " + plataforma + "  |  T: " + temporadas + "  EPs: " + episodios + "  |  " + ondeParou);
     }
 
     public String listarAssistir(){
-        return titulo + " | " + genero + " | " + plataforma + " | " + temporadas + " | " + episodios;
+        return ("[SÉRIE]  " + titulo + "  |  " + genero + "  |  " + plataforma + "  |  T: " + temporadas + "  EPs: " + episodios);
     }
     
     

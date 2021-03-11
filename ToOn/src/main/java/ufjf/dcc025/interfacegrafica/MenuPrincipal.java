@@ -2,7 +2,10 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+/*
+ *  Guilherme Martins Couto - 202065500B
  */
+
 package ufjf.dcc025.interfacegrafica;
 
 import java.awt.BorderLayout;
@@ -21,7 +24,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import ufjf.dcc025.usuario.LoginSenha;
+import ufjf.dcc025.show.ListaAssistindo;
+import ufjf.dcc025.show.ListaAssistir;
 
 /**
  *
@@ -36,9 +40,15 @@ public class MenuPrincipal implements ActionListener, MouseListener {
     private JButton botaoAssistindo = new JButton("Assistindo");
     private JLabel logoToOn = new JLabel();
     private FrameToOn frame = new FrameToOn();
+    
+    String usuarioAtivo;
+    ListaAssistir listaAssistir;
+    ListaAssistindo listaAssistindo;
 
-    public MenuPrincipal() {
-
+    public MenuPrincipal(String nomeUsuario) {
+        
+        usuarioAtivo = nomeUsuario;
+        
         // a logo
         logoToOn.setIcon(logo);
         logoToOn.setHorizontalTextPosition((JLabel.CENTER));
@@ -92,58 +102,23 @@ public class MenuPrincipal implements ActionListener, MouseListener {
         // frame set up
         frame.add(panel, BorderLayout.CENTER);
         frame.setTitle("Tô On - Menu Principal");
-
-        /*
-        // variáveis para label
-        label.setHorizontalTextPosition((JLabel.CENTER)); // alinhamento horizontal do texto
-        label.setVerticalTextPosition(JLabel.CENTER); // alinhamento vertical do texto
-        label.setFont(new Font("Sans Serif", Font.PLAIN, 20)); // fonte do texto
-        label.setForeground(Color.WHITE); // cor da fonte 
-        label.setBackground(new Color(34,34,34)); // cor de fundo
-        label.setIconTextGap(10); // distância entre icone e imagem
-        label.setOpaque(true); // mostra o background
-        label.setVerticalAlignment(JLabel.CENTER); // posiciona verticalmente icone+texto dentro da label
-        label.setHorizontalAlignment(JLabel.CENTER); // posiciona horizontalmente icone+texto dentro da label
-        //label.setBounds(100, 100, 250, 250); // x, y + dimensoes dentro da frame
-         */
- /*
-        // variaveis button
-        button.addActionListener(this);
-        button.setBackground(new Color(248,161,31));
-        //button.setText("sou um botão");
-        //button.setIcon();
-        //button.setIconTextGap(10); // distância entre icone e imagem
-        button.setFocusable(false); // tira a marquinha que fica no texto do botão
-        button.setBounds(500, 250, 20, 5);
-        //button.setPreferredSize(new Dimension(60,20));
-        button.setHorizontalTextPosition((JButton.CENTER)); // alinhamento horizontal do texto
-        button.setVerticalTextPosition(JButton.CENTER); // alinhamento vertical do texto
-        //button.add(label);
-        button.setFont(new Font("Sans Serif", Font.PLAIN, 20)); // fonte do texto
-        button.setForeground(Color.WHITE); // cor da fonte 
-        button.setBorder(BorderFactory.createEtchedBorder()); // altera a borda do botão
-        button.setEnabled(true); // ativo ou nao
-         */
+    }
+    
+    public String getUsuarioAtivo(){
+        return usuarioAtivo;
     }
 
     // process the button clicks
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == botaoPrecisoAssistir) {
             frame.dispose(); // fecha a janela anterior (MenuPrincipal) para não ficar com duas abertas
-            new MenuPrecisoAssistir();
+            new MenuPrecisoAssistir(usuarioAtivo);
         }
         if (e.getSource() == botaoAssistindo) {
             frame.dispose();
-            new MenuAssistindo();
+            new MenuAssistindo(usuarioAtivo);
         }
 
-    }
-
-    // create one Frame
-    public static void main(String[] args) {
-        LoginSenha usuario = new LoginSenha();
-        new PaginaLogin(LoginSenha.getLoginInfo());
-        //new MenuPrincipal();
     }
 
     @Override

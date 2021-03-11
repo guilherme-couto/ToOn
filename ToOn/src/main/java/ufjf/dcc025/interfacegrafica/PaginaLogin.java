@@ -3,6 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/*
+ *  Guilherme Martins Couto - 202065500B
+ */
+
+
 package ufjf.dcc025.interfacegrafica;
 
 import java.awt.BorderLayout;
@@ -15,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -43,8 +50,11 @@ public class PaginaLogin implements ActionListener, MouseListener {
     private FrameToOn frame = new FrameToOn();
 
     HashMap<String, String> infoLogin = new HashMap<String, String>();
+    ArrayList<String> listaAssistir = new ArrayList<String>();
+    public int EU;
 
     public PaginaLogin(HashMap<String, String> infoLoginOriginal) {
+        
         infoLogin = infoLoginOriginal;
 
         //labels
@@ -137,6 +147,7 @@ public class PaginaLogin implements ActionListener, MouseListener {
         // frame
         frame.setTitle("Tô On - Página de Login");
         frame.setSize(450, 550);
+        frame.setResizable(false);
         frame.add(panel, BorderLayout.CENTER);
     }
 
@@ -152,7 +163,7 @@ public class PaginaLogin implements ActionListener, MouseListener {
                     mensagem.setForeground(Color.green);
                     mensagem.setText("Logado com sucesso");
                     frame.dispose();
-                    MenuPrincipal menuPrincipal = new MenuPrincipal();
+                    new MenuPrincipal(nomeUsuario);
                 } else {
                     mensagem.setForeground(Color.red);
                     mensagem.setText("Senha incorreta");
@@ -164,7 +175,7 @@ public class PaginaLogin implements ActionListener, MouseListener {
         }
         if (ae.getSource() == botaoCadastrar) {
             frame.dispose();
-            new PaginaCadastro(infoLogin);
+            PaginaCadastro pgCadastro = new PaginaCadastro(infoLogin);
         }
     }
 

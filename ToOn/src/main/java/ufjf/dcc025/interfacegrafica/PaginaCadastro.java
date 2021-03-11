@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+ /*
+ *  Guilherme Martins Couto - 202065500B
+ */
 package ufjf.dcc025.interfacegrafica;
 
 import java.awt.BorderLayout;
@@ -26,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import ufjf.dcc025.usuario.LoginSenha;
 
 /**
  *
@@ -41,11 +46,13 @@ public class PaginaCadastro implements ActionListener, MouseListener {
     private JPasswordField senha = new JPasswordField();
     private JPasswordField confirmaSenha = new JPasswordField();
     private JButton botaoCadastrar = new JButton();
+    private JButton botaoVoltar = new JButton();
     private TitledBorder descricao;
 
     private FrameToOn frame = new FrameToOn();
 
     HashMap<String, String> infoLogin = new HashMap<String, String>();
+    
 
     public PaginaCadastro(HashMap<String, String> infoLoginOriginal) {
         infoLogin = infoLoginOriginal;
@@ -64,7 +71,7 @@ public class PaginaCadastro implements ActionListener, MouseListener {
         mensagem.setForeground(Color.white);
         mensagem.setBorder(BorderFactory.createEmptyBorder());
         mensagem.setText("");
-        mensagem.setPreferredSize(new Dimension(200, 35));
+        mensagem.setPreferredSize(new Dimension(220, 35));
         mensagem.setHorizontalAlignment(JTextField.CENTER);
 
         // caixas de texto
@@ -123,6 +130,21 @@ public class PaginaCadastro implements ActionListener, MouseListener {
         botaoCadastrar.setToolTipText("Clique para se cadastrar");
         botaoCadastrar.setCursor(new Cursor(Cursor.HAND_CURSOR)); // muda o cursor
         botaoCadastrar.addMouseListener(this);
+        
+        botaoVoltar.addActionListener(this);
+        botaoVoltar.setBackground(new Color(30, 29, 29));
+        botaoVoltar.setText("Voltar");
+        botaoVoltar.setPreferredSize(new Dimension(200, 30));
+        botaoVoltar.setHorizontalTextPosition((JButton.RIGHT)); // alinhamento horizontal do texto
+        botaoVoltar.setVerticalTextPosition(JButton.CENTER); // alinhamento vertical do texto
+        botaoVoltar.setFont(new Font("Sans Serif", Font.ITALIC, 17)); // fonte do texto
+        botaoVoltar.setHorizontalAlignment(JButton.CENTER); // alinhamento dentro do panel
+        botaoVoltar.setVerticalAlignment(JButton.CENTER); // alinhamento dentro do panel
+        botaoVoltar.setForeground(new Color(115, 115, 115)); // cor da fonte 
+        botaoVoltar.setBorder(BorderFactory.createEmptyBorder()); // altera a borda do botão
+        botaoVoltar.setToolTipText("Clique para voltar à página de login");
+        botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR)); // muda o cursor
+        botaoVoltar.addMouseListener(this);
 
         //panel
         panel.setBorder(BorderFactory.createEmptyBorder(15, 35, 35, 35));
@@ -134,11 +156,12 @@ public class PaginaCadastro implements ActionListener, MouseListener {
         panel.add(confirmaSenha);
         panel.add(mensagem);
         panel.add(botaoCadastrar);
+        panel.add(botaoVoltar);
 
         // frame
         frame.setTitle("Tô On - Página de Cadastro");
-        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
         frame.setSize(450, 550);
+        frame.setResizable(false);
         frame.add(panel, BorderLayout.CENTER);
     }
 
@@ -149,18 +172,20 @@ public class PaginaCadastro implements ActionListener, MouseListener {
             String nomeUsuario = username.getText();
             String senhaUsuario = String.valueOf(senha.getPassword());
             String senhaConfirmada = String.valueOf(confirmaSenha.getPassword());
-            System.out.println("senha: " + senhaUsuario);
-            System.out.println("confirmada: " + senhaConfirmada);
-            if (nomeUsuario == null) {
+
+            if (nomeUsuario.equals("")) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Username não pode estar em branco");
             } else if (infoLogin.containsKey(nomeUsuario)) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Username já está sendo utilizado");
-            } else if (senhaUsuario == " ") {
+            } else if (senhaUsuario.equals("")) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("A senha não pode estar em branco");
-            }  else { //caso o username esteja disponível
+            } else if (!senhaUsuario.equals(senhaConfirmada)) {
+                mensagem.setForeground(Color.red);
+                mensagem.setText("As senhas não conferem");
+            } else { //caso o username esteja disponível
                 try {
                     FileWriter fw = new FileWriter("LoginSenha.txt", true);
                     PrintWriter pw = new PrintWriter(fw);
@@ -173,8 +198,12 @@ public class PaginaCadastro implements ActionListener, MouseListener {
                     e.printStackTrace();
                 }
                 frame.dispose();
-                new MenuPrincipal();
+                new MenuPrincipal(nomeUsuario);
             }
+        }
+        else if(ae.getSource() == botaoVoltar) {
+            frame.dispose();
+            new PaginaLogin(infoLogin);
         }
     }
 
