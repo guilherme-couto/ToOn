@@ -7,16 +7,16 @@ public class Filme extends Show {
     }
 
     @Override
-    public void cadastro(String titulo, String genero, String plataforma, boolean assistindo, String td) {
+    public void cadastro(String titulo, String genero, String plataforma, String status, String td) {
         this.titulo = titulo;
         this.genero = genero;
         this.plataforma = plataforma;
-        this.assistindo = assistindo;
+        this.status = status;
         duracao = td;
     }
 
-    public void editarOndeParou(int hora, int min, int seg){
-        ondeParou = hora + ":" + min + ":" + seg;
+    public void editarOndeParou(String onde){
+        ondeParou = onde;
     }
 
     public String getDuracao() {
@@ -35,8 +35,8 @@ public class Filme extends Show {
         return plataforma;
     }
 
-    public boolean isAssistindo() {
-        return assistindo;
+    public String getStatus() {
+        return status;
     }
 
     public String getOndeParou() {
@@ -44,10 +44,13 @@ public class Filme extends Show {
     }
     
     public String listarAssistindo(){
-        return ("[FILME]  " + titulo + "  |  " + genero + "  |  " + plataforma + "  |  " + duracao + "  |  " + ondeParou);
+        if(status.equals("assistindo")){
+            return ("[FILME]   " + titulo + "   -   "  + plataforma + "   -   clique para atualizar onde parou");
+        }
+        return ("[FILME]   " + titulo + "   -   "  + plataforma + "   -   " + status);
     }
 
     public String listarAssistir(){
-        return ("[FILME]  " + titulo + "  |  " + genero + "  |  " + plataforma + "  |  " + duracao);
+        return ("[FILME]   " + titulo + "   -   " + genero + "   -   " + plataforma + "   -   " + duracao);
     }
 }

@@ -51,7 +51,7 @@ public class PaginaCadastro implements ActionListener, MouseListener {
 
     private FrameToOn frame = new FrameToOn();
 
-    HashMap<String, String> infoLogin = new HashMap<String, String>();
+    private HashMap<String, String> infoLogin = new HashMap<String, String>();
     
 
     public PaginaCadastro(HashMap<String, String> infoLoginOriginal) {
@@ -223,6 +223,8 @@ public class PaginaCadastro implements ActionListener, MouseListener {
     public void mouseEntered(MouseEvent me) {
         if (me.getSource() == botaoCadastrar) {
             botaoCadastrar.setBackground(new Color(255, 183, 76));
+        }else if (me.getSource() == botaoVoltar) {
+            botaoVoltar.setForeground(Color.WHITE);
         }
     }
 
@@ -230,6 +232,8 @@ public class PaginaCadastro implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent me) {
         if (me.getSource() == botaoCadastrar) {
             botaoCadastrar.setBackground(new Color(248, 161, 31));
+        }else if (me.getSource() == botaoVoltar) {
+            botaoVoltar.setForeground(new Color(115, 115, 115));
         }
     }
 

@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
+ /*
  *  Guilherme Martins Couto - 202065500B
  */
-
 package ufjf.dcc025.interfacegrafica;
 
 import java.awt.BorderLayout;
@@ -25,11 +24,9 @@ import java.io.PrintWriter;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import ufjf.dcc025.interfacegrafica.MenuAssistindo;
 
 /**
  *
@@ -40,10 +37,10 @@ public class AdicionarSerie implements ActionListener, MouseListener {
     private JPanel panel = new JPanel();
 
     private JButton botaoAdicionar = new JButton();
+    private JButton botaoVoltar = new JButton();
     private JLabel mensagem = new JLabel();
     private JTextField titulo = new JTextField();
     private JTextField genero = new JTextField();
-    private JTextField subgenero = new JTextField();
     private JTextField plataforma = new JTextField();
     private JTextField numTemporadas = new JTextField();
     private JTextField numEpisodios = new JTextField();
@@ -51,15 +48,15 @@ public class AdicionarSerie implements ActionListener, MouseListener {
     private TitledBorder descricao;
 
     private FrameToOn frame = new FrameToOn();
-    
-    String usuarioAtivo;
-    String situacao;
+
+    private String usuarioAtivo;
+    private String situacao;
 
     public AdicionarSerie(String nomeUsuario, String status) {
-        
+
         usuarioAtivo = nomeUsuario;
         situacao = status;
-        
+
         // caixas de texto
         titulo.setFont(new Font("Sans Serif", Font.PLAIN, 16));
         titulo.setBackground(new Color(30, 29, 29));
@@ -86,19 +83,6 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         genero.setBorder(descricao);
         genero.setPreferredSize(new Dimension(250, 50));
         genero.setToolTipText("Gênero da série");
-
-        subgenero.setFont(new Font("Sans Serif", Font.PLAIN, 16));
-        subgenero.setBackground(new Color(30, 29, 29));
-        subgenero.setForeground(Color.white);
-        subgenero.setCaretColor(Color.white);
-        subgenero.setCursor(new Cursor(Cursor.TEXT_CURSOR));
-        descricao = BorderFactory.createTitledBorder("");
-        descricao.setTitle("Sub-Gênero");
-        descricao.setTitleColor(Color.white);
-        descricao.setTitleFont(new Font("Sans Serif", Font.ITALIC, 13));
-        subgenero.setBorder(descricao);
-        subgenero.setPreferredSize(new Dimension(250, 50));
-        subgenero.setToolTipText("Sub-Gênero da série");
 
         plataforma.setFont(new Font("Sans Serif", Font.PLAIN, 16));
         plataforma.setBackground(new Color(30, 29, 29));
@@ -148,7 +132,7 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         obrigatorio.setEnabled(false);
         obrigatorio.setPreferredSize(new Dimension(500, 20));
         obrigatorio.setHorizontalAlignment(JTextField.CENTER);
-        
+
         mensagem.setFont(new Font("Sans Serif", Font.ITALIC, 13));
         mensagem.setBackground(new Color(30, 29, 29));
         mensagem.setForeground(Color.white);
@@ -175,23 +159,38 @@ public class AdicionarSerie implements ActionListener, MouseListener {
         botaoAdicionar.setCursor(new Cursor(Cursor.HAND_CURSOR)); // muda o cursor
         botaoAdicionar.addMouseListener(this);
 
+        botaoVoltar.addActionListener(this);
+        botaoVoltar.setBackground(new Color(30, 29, 29));
+        botaoVoltar.setText("Voltar");
+        botaoVoltar.setPreferredSize(new Dimension(800, 30));
+        botaoVoltar.setHorizontalTextPosition((JButton.RIGHT)); // alinhamento horizontal do texto
+        botaoVoltar.setVerticalTextPosition(JButton.CENTER); // alinhamento vertical do texto
+        botaoVoltar.setFont(new Font("Sans Serif", Font.ITALIC, 17)); // fonte do texto
+        botaoVoltar.setHorizontalAlignment(JButton.CENTER); // alinhamento dentro do panel
+        botaoVoltar.setVerticalAlignment(JButton.CENTER); // alinhamento dentro do panel
+        botaoVoltar.setForeground(new Color(115, 115, 115)); // cor da fonte 
+        botaoVoltar.setBorder(BorderFactory.createEmptyBorder()); // altera a borda do botão
+        botaoVoltar.setToolTipText("Clique para voltar");
+        botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR)); // muda o cursor
+        botaoVoltar.addMouseListener(this);
+
         //panel
-        panel.setBorder(BorderFactory.createEmptyBorder(70, 100, 100, 100));
+        panel.setBorder(BorderFactory.createEmptyBorder(40, 100, 100, 100));
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         panel.setBackground(new Color(30, 29, 29)); // muda a cor de fundo  
         panel.add(titulo);
         panel.add(genero);
-        panel.add(subgenero);
         panel.add(plataforma);
         panel.add(numTemporadas);
         panel.add(numEpisodios);
         panel.add(obrigatorio);
         panel.add(mensagem);
         panel.add(botaoAdicionar);
+        panel.add(botaoVoltar);
 
         // frame
         frame.setTitle("Tô On - Adicionar Série");
-        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(frame.DO_NOTHING_ON_CLOSE);
         frame.setSize(780, 520);
         frame.setResizable(false);
         frame.add(panel, BorderLayout.CENTER);
@@ -202,15 +201,13 @@ public class AdicionarSerie implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == botaoAdicionar) {
             System.out.println(titulo.getText());
-            
+
             String tituloSerie = titulo.getText();
             String generoSerie = genero.getText();
-            String subgeneroSerie = subgenero.getText();
             String plataformaSerie = plataforma.getText();
             String numTemporadasSerie = numTemporadas.getText();
             String numEpisodiosSerie = numEpisodios.getText();
-       
-            
+
             if (tituloSerie.equals("")) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Título não pode estar em branco");
@@ -220,19 +217,19 @@ public class AdicionarSerie implements ActionListener, MouseListener {
             } else if (plataformaSerie.equals("")) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Plataforma não pode estar em branco");
-            } else if(numTemporadasSerie.equals("")) {
+            } else if (numTemporadasSerie.equals("")) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Temporadas não pode estar em branco");
-            } else if(numEpisodiosSerie.equals("")) {
+            } else if (numEpisodiosSerie.equals("")) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Episodios não pode estar em branco");
-            } else{
+            } else {
                 try {
                     FileWriter fw = new FileWriter("BaseFilmesSeries.txt", true);
                     PrintWriter pw = new PrintWriter(fw);
                     pw.println(usuarioAtivo + ";" + tituloSerie + ";" + generoSerie
-                                + ";" + plataformaSerie + ";" + numTemporadasSerie + ";" + numEpisodiosSerie + ";"
-                                + situacao);
+                            + ";" + plataformaSerie + ";" + numTemporadasSerie + ";" + numEpisodiosSerie + ";"
+                            + situacao);
                     fw.close();
                     pw.close();
                     System.out.println("Serie adicionada com sucesso");
@@ -240,7 +237,21 @@ public class AdicionarSerie implements ActionListener, MouseListener {
                     System.out.println("Erro ocorreu ao tentar adicionar filme");
                     e.printStackTrace();
                 }
+                if (situacao.equals("assistir")) {
+                    frame.dispose();
+                    new MenuPrecisoAssistir(usuarioAtivo);
+                } else if (situacao.equals("assistindo")) {
+                    frame.dispose();
+                    new MenuAssistindo(usuarioAtivo);
+                }
+            }
+        } else if (ae.getSource() == botaoVoltar) {
+            if (situacao.equals("assistir")) {
                 frame.dispose();
+                new MenuPrecisoAssistir(usuarioAtivo);
+            } else if (situacao.equals("assistindo")) {
+                frame.dispose();
+                new MenuAssistindo(usuarioAtivo);
             }
         }
     }
@@ -270,5 +281,4 @@ public class AdicionarSerie implements ActionListener, MouseListener {
             botaoAdicionar.setBackground(new Color(248, 161, 31));
         }
     }
-
 }

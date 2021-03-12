@@ -12,7 +12,6 @@ package ufjf.dcc025.usuario;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -22,7 +21,7 @@ import java.util.HashMap;
  */
 public class LoginSenha {
 
-    static HashMap<String, String> infoLogin = new HashMap<String, String>();
+    private static HashMap<String, String> infoLogin = new HashMap<String, String>();
 
     public LoginSenha() {
 

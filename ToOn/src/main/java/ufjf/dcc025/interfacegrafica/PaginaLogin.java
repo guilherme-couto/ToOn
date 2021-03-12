@@ -49,9 +49,8 @@ public class PaginaLogin implements ActionListener, MouseListener {
 
     private FrameToOn frame = new FrameToOn();
 
-    HashMap<String, String> infoLogin = new HashMap<String, String>();
-    ArrayList<String> listaAssistir = new ArrayList<String>();
-    public int EU;
+    private HashMap<String, String> infoLogin = new HashMap<String, String>();
+    private ArrayList<String> listaAssistir = new ArrayList<String>();
 
     public PaginaLogin(HashMap<String, String> infoLoginOriginal) {
         

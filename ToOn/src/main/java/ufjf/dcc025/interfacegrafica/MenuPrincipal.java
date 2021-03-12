@@ -24,8 +24,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import ufjf.dcc025.show.ListaAssistindo;
-import ufjf.dcc025.show.ListaAssistir;
 
 /**
  *
@@ -41,9 +39,7 @@ public class MenuPrincipal implements ActionListener, MouseListener {
     private JLabel logoToOn = new JLabel();
     private FrameToOn frame = new FrameToOn();
     
-    String usuarioAtivo;
-    ListaAssistir listaAssistir;
-    ListaAssistindo listaAssistindo;
+    private String usuarioAtivo;
 
     public MenuPrincipal(String nomeUsuario) {
         
@@ -99,7 +95,7 @@ public class MenuPrincipal implements ActionListener, MouseListener {
         panel.add(logoToOn);
         panel.add(panel2);
 
-        // frame set up
+        // frame
         frame.add(panel, BorderLayout.CENTER);
         frame.setTitle("Tô On - Menu Principal");
     }

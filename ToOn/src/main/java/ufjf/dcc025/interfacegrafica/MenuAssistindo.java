@@ -29,6 +29,8 @@ import javax.swing.ListSelectionModel;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 import javax.swing.ScrollPaneLayout;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import ufjf.dcc025.show.ListaAssistindo;
 import ufjf.dcc025.usuario.BaseFilmesSeries;
 
@@ -36,7 +38,7 @@ import ufjf.dcc025.usuario.BaseFilmesSeries;
  *
  * @author guilherme
  */
-public class MenuAssistindo implements ActionListener, MouseListener {
+public class MenuAssistindo implements ActionListener, MouseListener, ListSelectionListener {
 
     public String[] padrao = {"Você não está assistindo a nada agora. Adicione mais filmes e séries a sua lista!"};
 
@@ -53,15 +55,18 @@ public class MenuAssistindo implements ActionListener, MouseListener {
     private JButton botaoAddSerie = new JButton();
     private JButton botaoHome = new JButton();
     private JCheckBox check = new JCheckBox();
+
     private FrameToOn frame = new FrameToOn();
 
-    String usuarioAtivo;
-    ListaAssistindo listaAssistindo;
+    private String usuarioAtivo;
+    private ListaAssistindo listaAssistindo;
+    private BaseFilmesSeries baseDados = new BaseFilmesSeries();
 
     public MenuAssistindo(String nomeUsuario) {
 
+        // pega as informaçoes atualizadas da base de dados
         usuarioAtivo = nomeUsuario;
-        BaseFilmesSeries baseDados = new BaseFilmesSeries(nomeUsuario, true);
+        baseDados.carregaBaseDados(usuarioAtivo);
         listaAssistindo = baseDados.getListaAssistindo();
 
         // botoes
@@ -119,14 +124,13 @@ public class MenuAssistindo implements ActionListener, MouseListener {
         check.setFont(new Font("Sans Serif", Font.BOLD, 15));
         check.setBackground(new Color(30, 29, 29));
         check.setForeground(new Color(115, 115, 115));
-
+        
         // panel                
         panel2.setBorder(BorderFactory.createEmptyBorder(30, 10, 30, 0));
         panel2.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 10));
         panel2.setBackground(new Color(30, 29, 29)); // muda a cor de fundo
         panel2.add(botaoAddFilme);
         panel2.add(botaoAddSerie);
-        panel2.add(check);
 
         panel3.setBorder(BorderFactory.createEmptyBorder(40, 0, 30, 25));
         panel3.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -157,6 +161,7 @@ public class MenuAssistindo implements ActionListener, MouseListener {
         lista.setVisibleRowCount(-1);
         lista.setBackground(new Color(34, 34, 34));
         lista.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        lista.addListSelectionListener(this);
 
         // scroll pane
         scrollPane.setLayout(new ScrollPaneLayout());
@@ -180,9 +185,11 @@ public class MenuAssistindo implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == botaoAddFilme) {
             new AdicionarFilme(usuarioAtivo, "assistindo");
+            frame.dispose();
         }
         if (ae.getSource() == botaoAddSerie) {
             new AdicionarSerie(usuarioAtivo, "assistindo");
+            frame.dispose();
         }
 
         if (ae.getSource() == botaoHome) {
@@ -229,4 +236,23 @@ public class MenuAssistindo implements ActionListener, MouseListener {
         }
     }
 
+    @Override
+    public void valueChanged(ListSelectionEvent lse) {
+        int index = lista.getSelectedIndex();
+        if (index != -1) {
+            String s = listaAssistindo.getPorIndice(index);
+            String divisor = "   -   ";
+            String [] infos = s.split(divisor);
+            
+            String categoria = infos[0].substring(1, 6); //nome da categoria
+            categoria = categoria.toLowerCase();
+            System.out.println("categoria: " + categoria);
+            String titulo = infos[0].substring(10); //titulo do show
+            System.out.println("titulo: " + titulo);
+            
+            new ExcluirAtualizar(usuarioAtivo, titulo, categoria);
+            frame.dispose();
+           
+        }
+    }
 }

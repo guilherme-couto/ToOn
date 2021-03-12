@@ -11,11 +11,11 @@ public class Serie extends Show{
     }
 
     @Override
-    public void cadastro(String titulo, String genero, String plataforma, boolean assistindo,  String td) {
+    public void cadastro(String titulo, String genero, String plataforma, String status,  String td) {
         this.titulo = titulo;
         this.genero = genero;
         this.plataforma = plataforma;
-        this.assistindo = assistindo;
+        this.status = status;
         temporadas = Integer.parseInt(td);
     }
 
@@ -27,8 +27,8 @@ public class Serie extends Show{
         this.episodios=episodios;
     }
 
-    public void editarOndeParou(int temporada, int episodio){
-        ondeParou = "T: " + temporada + ", Ep: " + episodio;
+    public void editarOndeParou(String onde){
+        ondeParou = onde;
     }
 
     public int getTemporadas() {
@@ -47,8 +47,8 @@ public class Serie extends Show{
         return plataforma;
     }
 
-    public boolean isAssistindo() {
-        return assistindo;
+    public String getStatus() {
+        return status;
     }
 
     public String getOndeParou() {
@@ -60,11 +60,14 @@ public class Serie extends Show{
     }
     
     public String listarAssistindo(){
-        return ("[SÉRIE]  " + titulo + "  |  " + genero + "  |  " + plataforma + "  |  T: " + temporadas + "  EPs: " + episodios + "  |  " + ondeParou);
+        if(status.equals("assistindo")){
+            return ("[SERIE]   " + titulo + "   -   "  + plataforma + "   -   clique para atualizar onde parou");
+        }
+        return ("[SERIE]   " + titulo + "   -   "  + plataforma + "   -   " + status);
     }
 
     public String listarAssistir(){
-        return ("[SÉRIE]  " + titulo + "  |  " + genero + "  |  " + plataforma + "  |  T: " + temporadas + "  EPs: " + episodios);
+        return ("[SERIE]   " + titulo + "   -   " + genero + "   -   " + plataforma + "   -   T: " + temporadas + "   EPs: " + episodios);
     }
     
     

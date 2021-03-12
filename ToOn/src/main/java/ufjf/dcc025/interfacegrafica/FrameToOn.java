@@ -21,7 +21,7 @@ import javax.swing.JFrame;
  */
 public class FrameToOn extends JFrame {
     
-    FrameToOn(){
+    public FrameToOn(){
         
         ImageIcon icone = new ImageIcon("src/main/java/imagens/logo_mini.png");
         

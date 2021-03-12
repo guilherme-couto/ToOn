@@ -29,6 +29,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import static javax.swing.ScrollPaneConstants.*;
 import javax.swing.ScrollPaneLayout;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import ufjf.dcc025.show.*;
 import ufjf.dcc025.usuario.BaseFilmesSeries;
 
@@ -36,7 +38,7 @@ import ufjf.dcc025.usuario.BaseFilmesSeries;
  *
  * @author guilherme
  */
-public class MenuPrecisoAssistir implements ActionListener, MouseListener {
+public class MenuPrecisoAssistir implements ActionListener, MouseListener, ListSelectionListener {
 
     String[] padrao = {"Não há nada para assistir agora. Adicione mais filmes e séries a sua lista!"};
 
@@ -54,13 +56,15 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener {
     private JButton botaoHome = new JButton();
     private FrameToOn frame = new FrameToOn();
 
-    String usuarioAtivo;
-    ListaAssistir listaAssistir;
+    private String usuarioAtivo;
+    private ListaAssistir listaAssistir;
+    private BaseFilmesSeries baseDados = new BaseFilmesSeries();
 
     public MenuPrecisoAssistir(String nomeUsuario) {
 
+        // pega as informaçoes atualizadas da base de dados
         usuarioAtivo = nomeUsuario;
-        BaseFilmesSeries baseDados = new BaseFilmesSeries(nomeUsuario, false);
+        baseDados.carregaBaseDados(nomeUsuario);
         listaAssistir = baseDados.getListaAssistir();
 
         // botoes
@@ -148,6 +152,7 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener {
         lista.setVisibleRowCount(-1);
         lista.setBackground(new Color(34, 34, 34));
         lista.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        lista.addListSelectionListener(this);
 
         // scroll pane
         scrollPane.setLayout(new ScrollPaneLayout());
@@ -171,9 +176,11 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == botaoAddFilme) {
             new AdicionarFilme(usuarioAtivo, "assistir");
+            frame.dispose();
         }
         if (ae.getSource() == botaoAddSerie) {
             new AdicionarSerie(usuarioAtivo, "assistir");
+            frame.dispose();
         }
 
         if (ae.getSource() == botaoHome) {
@@ -217,6 +224,25 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener {
         }
         if (me.getSource() == botaoHome) {
             botaoHome.setIcon(home);
+        }
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent lse) {
+        int index = lista.getSelectedIndex();
+        if (index != -1) {
+            String s = listaAssistir.getPorIndice(index);
+            String divisor = "   -   ";
+            String[] infos = s.split(divisor);
+
+            String categoria = infos[0].substring(1, 6); //nome da categoria
+            categoria = categoria.toLowerCase();
+            System.out.println("categoria: " + categoria);
+            String titulo = infos[0].substring(10); //titulo do show
+            System.out.println("titulo: " + titulo);
+
+            new ExcluirAssistindo(usuarioAtivo, titulo, categoria);
+            frame.dispose();
         }
     }
 }
