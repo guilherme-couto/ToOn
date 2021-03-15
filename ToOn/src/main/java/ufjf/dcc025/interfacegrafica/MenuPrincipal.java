@@ -1,7 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
 /*
  *  Guilherme Martins Couto - 202065500B
  */
@@ -104,8 +101,9 @@ public class MenuPrincipal implements ActionListener, MouseListener {
         return usuarioAtivo;
     }
 
-    // process the button clicks
+    @Override
     public void actionPerformed(ActionEvent e) {
+        //encaminha para os menus a depender do botao clicado
         if (e.getSource() == botaoPrecisoAssistir) {
             frame.dispose(); // fecha a janela anterior (MenuPrincipal) para não ficar com duas abertas
             new MenuPrecisoAssistir(usuarioAtivo);

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
  /*
  *  Guilherme Martins Couto - 202065500B
@@ -40,7 +36,7 @@ import ufjf.dcc025.usuario.BaseFilmesSeries;
  */
 public class MenuPrecisoAssistir implements ActionListener, MouseListener, ListSelectionListener {
 
-    String[] padrao = {"Não há nada para assistir agora. Adicione mais filmes e séries a sua lista!"};
+    private String[] padrao = {"Não há nada para assistir agora. Adicione mais filmes e séries a sua lista!"};
 
     private ImageIcon plus = new ImageIcon("src/main/java/imagens/plus_icon.png");
     private ImageIcon home = new ImageIcon("src/main/java/imagens/home_icon.png");
@@ -230,6 +226,8 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener, ListS
     @Override
     public void valueChanged(ListSelectionEvent lse) {
         int index = lista.getSelectedIndex();
+        
+        //caso a lista esteja com algum elemento selecionado
         if (index != -1) {
             String s = listaAssistir.getPorIndice(index);
             String divisor = "   -   ";
@@ -237,10 +235,9 @@ public class MenuPrecisoAssistir implements ActionListener, MouseListener, ListS
 
             String categoria = infos[0].substring(1, 6); //nome da categoria
             categoria = categoria.toLowerCase();
-            System.out.println("categoria: " + categoria);
             String titulo = infos[0].substring(10); //titulo do show
-            System.out.println("titulo: " + titulo);
 
+            //chama o menu de açoes possiveis para aquele item
             new ExcluirAssistindo(usuarioAtivo, titulo, categoria);
             frame.dispose();
         }

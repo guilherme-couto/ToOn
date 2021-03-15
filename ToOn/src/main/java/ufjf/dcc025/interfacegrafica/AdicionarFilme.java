@@ -1,7 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  *
  *  Guilherme Martins Couto - 202065500B
  */
@@ -20,15 +17,12 @@ import java.awt.event.MouseListener;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import ufjf.dcc025.show.*;
-import ufjf.dcc025.interfacegrafica.PaginaLogin;
 
 /**
  *
@@ -64,7 +58,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
         titulo.setForeground(Color.white);
         titulo.setCaretColor(Color.white);
         titulo.setCursor(new Cursor(Cursor.TEXT_CURSOR));
-        descricao = BorderFactory.createTitledBorder("");
+        descricao = BorderFactory.createTitledBorder(""); //borda com título
         descricao.setTitle("Título*");
         descricao.setTitleColor(Color.white);
         descricao.setTitleFont(new Font("Sans Serif", Font.ITALIC, 13));
@@ -120,7 +114,8 @@ public class AdicionarFilme implements ActionListener, MouseListener {
         obrigatorio.setEnabled(false);
         obrigatorio.setPreferredSize(new Dimension(500, 20));
         obrigatorio.setHorizontalAlignment(JTextField.CENTER);
-
+        
+        //label
         mensagem.setFont(new Font("Sans Serif", Font.ITALIC, 13));
         mensagem.setBackground(new Color(30, 29, 29));
         mensagem.setForeground(Color.white);
@@ -129,7 +124,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
         mensagem.setPreferredSize(new Dimension(500, 35));
         mensagem.setHorizontalAlignment(JTextField.CENTER);
 
-        //botão
+        //botões
         botaoAdicionar.addActionListener(this);
         botaoAdicionar.setBackground(new Color(248, 161, 31));
         botaoAdicionar.setText("Adicionar");
@@ -198,6 +193,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent me) {
+        //muda de cor o botão caso o mouse esteja por cima dele, para dar uma resposta visual ao usuario
         if (me.getSource() == botaoAdicionar) {
             botaoAdicionar.setBackground(new Color(255, 183, 76));
         } else if (me.getSource() == botaoVoltar) {
@@ -207,6 +203,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
 
     @Override
     public void mouseExited(MouseEvent me) {
+        //muda de cor o botão caso o mouse esteja fora dele (padrão)
         if (me.getSource() == botaoAdicionar) {
             botaoAdicionar.setBackground(new Color(248, 161, 31));
         } else if (me.getSource() == botaoVoltar) {
@@ -216,14 +213,16 @@ public class AdicionarFilme implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        // caso o usuario clique no botaoAdicionar
         if (ae.getSource() == botaoAdicionar) {
-            System.out.println(titulo.getText());
-
+            
+            //armazena as informações coletadas das caixas de texto em variáveis do tipo string, para facilitar a comparação posterior
             String tituloFilme = titulo.getText();
             String generoFilme = genero.getText();
             String plataformaFilme = plataforma.getText();
             String duracaoFilme = duracao.getText();
-
+            
+            // checa se nenhum campo foi deixado em branco
             if (tituloFilme.equals("")) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Título não pode estar em branco");
@@ -236,20 +235,28 @@ public class AdicionarFilme implements ActionListener, MouseListener {
             } else if (duracaoFilme.equals("")) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Duração não pode estar em branco");
-            } else {
+            } 
+            // com todas as informações preenchidas, o programa vai escreve-las na base de dados
+            else {
                 try {
+                    // abre o arquivo da base de dados, para fazer um apendice com as informações de um novo filme
                     FileWriter fw = new FileWriter("BaseFilmesSeries.txt", true);
-                    PrintWriter pw = new PrintWriter(fw);
+                    PrintWriter pw = new PrintWriter(fw); //print writer apresenta funcionalidades mais úteis
+                    //o formato a ser escrito no artigo segue o padrão: nomeDoUsuario;títuloDoFilme;generoFilme;Plataforma;Duracao;status
+                    // o nomedeusuário é unico, portanto serve como identificador
+                    // a variável situação vai indicar se o filme está para ser assistido ou se está sendo assistido. Caso esteja sendo assistido, o campo indica onde parou 
                     pw.println(usuarioAtivo + ";" + tituloFilme + ";" + generoFilme
                             + ";" + plataformaFilme + ";" + duracaoFilme
                             + ";" + situacao);
                     fw.close();
                     pw.close();
-                    System.out.println("Filme adicionado com sucesso");
+                    System.out.println("Filme adicionado com sucesso"); //apenas controle
                 } catch (IOException e) {
                     System.out.println("Erro ocorreu ao tentar adicionar filme");
                     e.printStackTrace();
                 }
+                //condicional para saber para qual menu o programa deve voltar, uma vez que Adicionar Filme está presente em mais de um menu
+                // é importante abrir um novo menu do qual saiu, pois, assim, ele irá "recarregar" e trazer a info atualizada do filme recém adicionado
                 if (situacao.equals("assistir")) {
                     frame.dispose();
                     new MenuPrecisoAssistir(usuarioAtivo);
@@ -258,7 +265,7 @@ public class AdicionarFilme implements ActionListener, MouseListener {
                     new MenuAssistindo(usuarioAtivo);
                 }
             }
-        } else if (ae.getSource() == botaoVoltar) {
+        } else if (ae.getSource() == botaoVoltar) { //mesma condicional descrita acima
             if (situacao.equals("assistir")) {
                 frame.dispose();
                 new MenuPrecisoAssistir(usuarioAtivo);

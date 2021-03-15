@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*
  *  Guilherme Martins Couto - 202065500B
@@ -156,13 +151,14 @@ public class PaginaLogin implements ActionListener, MouseListener {
 
             String nomeUsuario = username.getText();
             String senhaUsuario = String.valueOf(senha.getPassword());
-
+            
+            //busca a informação do usuario no banco de dados (hashmap)
             if (infoLogin.containsKey(nomeUsuario)) {
                 if (infoLogin.get(nomeUsuario).equals(senhaUsuario)) {
                     mensagem.setForeground(Color.green);
                     mensagem.setText("Logado com sucesso");
                     frame.dispose();
-                    new MenuPrincipal(nomeUsuario);
+                    new MenuPrincipal(nomeUsuario); //loga no menu principal usando a chave, no caso, o nome do usuario
                 } else {
                     mensagem.setForeground(Color.red);
                     mensagem.setText("Senha incorreta");
@@ -172,6 +168,7 @@ public class PaginaLogin implements ActionListener, MouseListener {
                 mensagem.setText("Usuario não existe");
             }
         }
+        //leva para a página de cadastro
         if (ae.getSource() == botaoCadastrar) {
             frame.dispose();
             PaginaCadastro pgCadastro = new PaginaCadastro(infoLogin);

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
  /*
  *  Guilherme Martins Couto - 202065500B
@@ -30,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import ufjf.dcc025.usuario.LoginSenha;
 
 /**
  *
@@ -51,7 +46,7 @@ public class PaginaCadastro implements ActionListener, MouseListener {
 
     private FrameToOn frame = new FrameToOn();
 
-    private HashMap<String, String> infoLogin = new HashMap<String, String>();
+    private HashMap<String, String> infoLogin = new HashMap<>();
     
 
     public PaginaCadastro(HashMap<String, String> infoLoginOriginal) {
@@ -172,11 +167,12 @@ public class PaginaCadastro implements ActionListener, MouseListener {
             String nomeUsuario = username.getText();
             String senhaUsuario = String.valueOf(senha.getPassword());
             String senhaConfirmada = String.valueOf(confirmaSenha.getPassword());
-
+            
+            //controle para não ter dados inconsistentes 
             if (nomeUsuario.equals("")) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Username não pode estar em branco");
-            } else if (infoLogin.containsKey(nomeUsuario)) {
+            } else if (infoLogin.containsKey(nomeUsuario)) { //checa se o nome ja foi utilizado
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Username já está sendo utilizado");
             } else if (senhaUsuario.equals("")) {
@@ -185,7 +181,9 @@ public class PaginaCadastro implements ActionListener, MouseListener {
             } else if (!senhaUsuario.equals(senhaConfirmada)) {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("As senhas não conferem");
-            } else { //caso o username esteja disponível
+            } 
+            //caso o username esteja disponível, cadastra ele no banco de dados de login
+            else { 
                 try {
                     FileWriter fw = new FileWriter("LoginSenha.txt", true);
                     PrintWriter pw = new PrintWriter(fw);
@@ -198,7 +196,7 @@ public class PaginaCadastro implements ActionListener, MouseListener {
                     e.printStackTrace();
                 }
                 frame.dispose();
-                new MenuPrincipal(nomeUsuario);
+                new MenuPrincipal(nomeUsuario); //inicia o menu já com o usuario logado
             }
         }
         else if(ae.getSource() == botaoVoltar) {

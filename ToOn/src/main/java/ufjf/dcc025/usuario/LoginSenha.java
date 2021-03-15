@@ -21,7 +21,7 @@ import java.util.HashMap;
  */
 public class LoginSenha {
 
-    private static HashMap<String, String> infoLogin = new HashMap<String, String>();
+    private static HashMap<String, String> infoLogin = new HashMap<>();
 
     public LoginSenha() {
 

@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
 
     Guilherme Martins Couto - 202065500B
  */
@@ -21,9 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 import ufjf.dcc025.usuario.BaseFilmesSeries;
 
 /**
@@ -134,6 +130,8 @@ public class ExcluirAtualizar implements ActionListener, MouseListener {
             frame.dispose();
             new MenuAssistindo(usuarioAtivo);
         } else if (ae.getSource() == botaoExcluir) {
+            
+            //apaga um show do banco de dados chamando seu metodo
             baseDados.apagarShow(usuarioAtivo, tituloS, categoria);
             frame.dispose();
             new MenuAssistindo(usuarioAtivo);

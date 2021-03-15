@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+
  *
  * Guilherme Martins Couto - 202065500B
  *
@@ -65,9 +63,9 @@ public class BaseFilmesSeries {
                         Filme f = new Filme();
                         f.cadastro(infos[1], infos[2], infos[3], infos[5], infos[4]);
 
-                        if (infos[5].equals("assistir")) {                            
+                        if (infos[5].equals("assistir")) {
                             listaAssistir.adicionarFilme(f);
-                        } else {                         
+                        } else {
                             listaAssistindo.adicionarFilme(f);
                         }
                     } else if (infos.length == 7) { //a linha indica uma serie
@@ -95,7 +93,9 @@ public class BaseFilmesSeries {
             }
         }
     }
-
+    
+    //a ação de apagar funciona reescrevendo o arquivo em um auxiliar, excluindo o que se pretende apagar,
+    //depois apga o arquivo antigo e, por fim, troca o nome do auxiliar para o nome do antigo
     public void apagarShow(String usuarioAtivo, String tituloShow, String filmeOUserie) {
         String arqvAux = "temporario.txt";
         File arqvAntigo = new File("BaseFilmesSeries.txt");
@@ -124,7 +124,7 @@ public class BaseFilmesSeries {
                 String username = "";
                 String titulo = "";
                 String categoria = "";
-                
+
                 if (infos.length == 6) {
                     username = infos[0].trim();
                     titulo = infos[1].trim();
@@ -158,6 +158,8 @@ public class BaseFilmesSeries {
         }
     }
 
+    //a edição funciona reescrevendo o arquivo em um auxiliar, acrescentando o que se pretende mudar, 
+    //depois apga o arquivo antigo e, por fim, troca o nome do auxiliar para o nome do antigo
     public void editarOndeParouShow(String usuarioAtivo, String tituloShow, String novoOndeParou, String filmeOUserie) {
         String arqvAux = "temporario.txt";
         File arqvAntigo = new File("BaseFilmesSeries.txt");
@@ -228,7 +230,9 @@ public class BaseFilmesSeries {
             System.out.println("ERRO NO METODO EDITAR ONDE PAROU SHOW");
         }
     }
-    
+
+    //a edição funciona reescrevendo o arquivo em um auxiliar, acrescentando o que se pretende mudar, 
+    //depois apga o arquivo antigo e, por fim, troca o nome do auxiliar para o nome do antigo
     public void editarStatus(String usuarioAtivo, String tituloShow, String novoStatus, String filmeOUserie) {
         String arqvAux = "temporario.txt";
         File arqvAntigo = new File("BaseFilmesSeries.txt");

@@ -1,8 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- /*
  *  Guilherme Martins Couto - 202065500B
  */
 package ufjf.dcc025.interfacegrafica;
@@ -40,7 +36,7 @@ import ufjf.dcc025.usuario.BaseFilmesSeries;
  */
 public class MenuAssistindo implements ActionListener, MouseListener, ListSelectionListener {
 
-    public String[] padrao = {"Você não está assistindo a nada agora. Adicione mais filmes e séries a sua lista!"};
+    private String[] padrao = {"Você não está assistindo a nada agora. Adicione mais filmes e séries a sua lista!"};
 
     private ImageIcon plus = new ImageIcon("src/main/java/imagens/plus_icon.png");
     private ImageIcon home = new ImageIcon("src/main/java/imagens/home_icon.png");
@@ -238,6 +234,8 @@ public class MenuAssistindo implements ActionListener, MouseListener, ListSelect
 
     @Override
     public void valueChanged(ListSelectionEvent lse) {
+        
+        //verifica se algum item está selecionado
         int index = lista.getSelectedIndex();
         if (index != -1) {
             String s = listaAssistindo.getPorIndice(index);
@@ -246,10 +244,11 @@ public class MenuAssistindo implements ActionListener, MouseListener, ListSelect
             
             String categoria = infos[0].substring(1, 6); //nome da categoria
             categoria = categoria.toLowerCase();
-            System.out.println("categoria: " + categoria);
+            //System.out.println("categoria: " + categoria);
             String titulo = infos[0].substring(10); //titulo do show
-            System.out.println("titulo: " + titulo);
+            //System.out.println("titulo: " + titulo);
             
+            //chama o menu referente às opçoes daquele item
             new ExcluirAtualizar(usuarioAtivo, titulo, categoria);
             frame.dispose();
            

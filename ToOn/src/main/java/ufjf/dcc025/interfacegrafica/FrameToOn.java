@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*
  *  Guilherme Martins Couto - 202065500B
@@ -10,7 +5,6 @@
 
 package ufjf.dcc025.interfacegrafica;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -21,6 +15,7 @@ import javax.swing.JFrame;
  */
 public class FrameToOn extends JFrame {
     
+    //modelo de frame padrão do programa. para não precisar ficar editando jframe o tempo todo
     public FrameToOn(){
         
         ImageIcon icone = new ImageIcon("src/main/java/imagens/logo_mini.png");

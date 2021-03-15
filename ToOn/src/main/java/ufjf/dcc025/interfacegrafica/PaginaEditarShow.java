@@ -1,9 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
-
-        Guilherme Martins Couto - 202065500B
+    Guilherme Martins Couto - 202065500B
  */
 package ufjf.dcc025.interfacegrafica;
 
@@ -17,16 +13,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import ufjf.dcc025.show.ListaAssistindo;
 import ufjf.dcc025.usuario.BaseFilmesSeries;
 
 /**
@@ -141,17 +133,18 @@ public class PaginaEditarShow implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == botaoAtualizar) {
             String onde = ondeParou.getText();
+            //chama os metodos de edição da base de dados, que vai reescrever o arquivo
             if (!onde.equals("")) {
                 baseDados.editarOndeParouShow(usuarioAtivo, tituloS, onde, categoria);
                 frame.dispose();
-                new MenuAssistindo(usuarioAtivo);
+                new MenuAssistindo(usuarioAtivo); //é preciso dar um new, pois assim a página "recarrega" com as infos novas
             } else {
                 mensagem.setForeground(Color.red);
                 mensagem.setText("Onde parou não pode estar em branco");
             }
         } else if (ae.getSource() == botaoVoltar){
             frame.dispose();
-            new MenuAssistindo(usuarioAtivo);
+            new MenuAssistindo(usuarioAtivo); //é preciso dar um new, pois assim a página "recarrega" com as infos novas
         }
     }
 
